@@ -1,0 +1,60 @@
+@startuml
+participant "Heizungssteuerungsapp" as App
+participant "Backend" as Backend
+participant "Raum_001" as HS << Heizungssteuerungsserver >>
+participant "Heizung_001_1" as Heizung <<Heizungssteuerung>>
+
+== register / manage rooms ==
+Heizung -> HS: register
+HS -> Heizung: Response register
+HS -> Backend: register
+note right
+  { "Id": "001",
+    "heatings": "1" }
+end note
+Backend -> HS: Response register
+App -> Backend: Request all Rooms
+Backend -> App: Response all Rooms
+note right
+  {[  "Id": "001",
+      "status": "online",
+      "heatings": "1" ]}
+end note
+
+App -> Backend: set Name
+note left
+  { "Id": "001",
+    "name": "Wohnzimmer" }
+end note
+Backend -> App: Response set Name
+
+== request / change temperature ==
+App -> Backend: Request current temperature
+note left: {"Id": "001"}
+Backend -> HS: Request current temperature
+HS -> Backend: Response current temperature
+Backend -> App: Response current temperature
+App -> Backend: Set temperature
+note left
+  { "Id": "001",
+    "temperature": "20" }
+end note
+
+Backend -> HS: Set temperature
+HS -> Backend: temperature set
+Backend -> App: temperature set
+
+== adjust temperature ==
+loop
+  HS -> HS: get current temperature
+  alt current temperature < temperature
+      HS -> Heizung: open valve
+  else current temperature > temperature
+      HS -> Heizung: close valve
+  end
+end
+
+
+
+
+@enduml

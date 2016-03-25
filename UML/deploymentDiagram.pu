@@ -1,0 +1,33 @@
+@startuml
+
+frame "ZigBee Network" {
+  node "Raspberry Pi" {
+    component "Heizungssteuerungsserver"
+  }
+  node "Heizungssteuerung"
+  node "Temperatursensor"
+
+}
+
+cloud cloud {
+  database Database
+  node Tomcat {
+    component "Backend"
+
+  }
+}
+
+
+
+node Smartphone {
+  component Heizungssteuerungsapp
+}
+
+Heizungssteuerungsapp -- Backend
+Heizungssteuerungsserver -- Heizungssteuerung
+Heizungssteuerungsserver -- Temperatursensor
+Heizungssteuerungsserver -- Backend
+Backend -- Database
+
+
+@enduml
