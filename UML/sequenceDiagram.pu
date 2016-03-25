@@ -13,6 +13,10 @@ note right
     "heatings": "1" }
 end note
 Backend -> HS: Response register
+
+App -> Backend: Login
+Backend -> App: Login OK!
+
 App -> Backend: Request all Rooms
 Backend -> App: Response all Rooms
 note right
