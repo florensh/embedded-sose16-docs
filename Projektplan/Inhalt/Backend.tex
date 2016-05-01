@@ -1,0 +1,114 @@
+\section{Backend}
+Das Backend kann über ein API von der App angesprochen werden, um Räume und Geräte zu verwalten und Kommandos an diese zu versenden.
+
+\subsection{API}
+Das API ist als RESTful Web Service realisiert. Ressourcen können über HTTP mit den Methoden \colorbox{pregray}{\lstinline{GET}}, \colorbox{pregray}{\lstinline{POST}}, \colorbox{pregray}{\lstinline{PUT}} und \colorbox{pregray}{\lstinline{DELETE}} angesprochen werden. Eine genaue Auflistung der API-Methoden ist im Anhang zu finden.
+
+\subsubsection{Schema}
+Sämtlicher Zugriff auf das API erfolgt über HTTPS und kann über \colorbox{pregray}{\lstinline{https://enigmatic-waters-31128.herokuapp.com}} erreicht werden.
+
+\vspace{2em}
+\begin{lstlisting}
+$ curl 'https://enigmatic-waters-31128.herokuapp.com/api/rooms/d934eb20-4c6f-4d1c-91c5-61cdeddcf843' 
+-i -H 'X-AUTH-TOKEN: TOKEN'
+
+HTTP/1.1 200 OK
+Connection: keep-alive
+Server: Apache-Coyote/1.1
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Methods: POST, PUT, PATCH, GET, OPTIONS, DELETE
+Access-Control-Max-Age: 3600
+Access-Control-Allow-Headers: x-requested-with, content-type, X-AUTH-TOKEN
+Access-Control-Expose-Headers: X-AUTH-TOKEN
+X-Content-Type-Options: nosniff
+X-Xss-Protection: 1; mode=block
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
+Strict-Transport-Security: max-age=31536000 ; includeSubDomains
+X-Frame-Options: DENY
+Content-Type: application/json;charset=UTF-8
+Transfer-Encoding: chunked
+Date: Sun, 01 May 2016 10:57:10 GMT
+Via: 1.1 vegur
+
+{
+  "roomId":"d934eb20-4c6f-4d1c-91c5-61cdeddcf843",
+  "name":"Wohnzimmer"
+}
+\end{lstlisting}
+\vspace{2em}
+
+Sowohl beim Abfragen einer Liste als auch beim Abfragen einzelner Ressourcen beinhaltet die Antwort alle Attribute der Ressource.
+
+\subsubsection{Authentifizierung}
+Anfragen, die eine Authentifizierung erfordern, geben als Antwort \colorbox{pregray}{\lstinline{403 Forbidden}} zurück. Zur Authentifizierung muss im Header das Feld \colorbox{pregray}{\lstinline{X-AUTH-TOKEN}} gesetzt sein. Das entsprechende Token wird nach einer erfolgreichen Login-Anfrage erhalten.
+
+\paragraph{Authentifizierung mit einem Token}\mbox{}\\
+\begin{lstlisting}
+$ curl 'https://enigmatic-waters-31128.herokuapp.com' -i -H 'X-AUTH-TOKEN: TOKEN'
+\end{lstlisting}
+
+\subsubsection{Login}
+Zum Erhalt eines Tokens muss eine Loginanfrage gestellt werden. Diese enthält die Attribute username und password.
+\vspace{2em}
+\begin{lstlisting}
+$ curl 'https://enigmatic-waters-31128.herokuapp.com/api/login' -i -X POST -H 'Content-Type: application/json' -d '{"username":"foo", "password": "bar"}'
+
+HTTP/1.1 200 OK
+Connection: keep-alive
+Server: Apache-Coyote/1.1
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Methods: POST, PUT, PATCH, GET, OPTIONS, DELETE
+Access-Control-Max-Age: 3600
+Access-Control-Allow-Headers: x-requested-with, content-type, X-AUTH-TOKEN
+Access-Control-Expose-Headers: X-AUTH-TOKEN
+X-Content-Type-Options: nosniff
+X-Xss-Protection: 1; mode=block
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
+Strict-Transport-Security: max-age=31536000 ; includeSubDomains
+X-Frame-Options: DENY
+X-Auth-Token: eyJpZCI6MTEsInVzZXJuYW1lIjoidXNlciIsImV4cGlyZXMiOjE0NjI5Njk0NzIwMTgsInJvbGVzIjpbIlVTRVIiXX0=.LDd74G0yJAuQChYR9P0AOmThfylOGGlY19u2DcTcXyQ=
+Content-Length: 0
+Date: Sun, 01 May 2016 12:24:32 GMT
+Via: 1.1 vegur
+\end{lstlisting}
+\vspace{2em}
+Das Token aus dem Response-Header-Feld \colorbox{pregray}{\lstinline{X-AUTH-TOKEN}} muss bei zukünftigen Anfragen enthalten sein.
+
+\subsubsection{Fehlgeschlagener Login}
+Loginanfragen mit ungültigen Benutzerdaten werden mit \colorbox{pregray}{\lstinline{401 Unauthorized}} beantwortet.
+\vspace{2em}
+\begin{lstlisting}
+$ curl 'https://enigmatic-waters-31128.herokuapp.com/api/login' -i -X POST -H 'Content-Type: application/json' -d '{"username":"foo", "password": "bar"}'
+
+HTTP/1.1 401 Unauthorized
+Connection: keep-alive
+Server: Apache-Coyote/1.1
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Methods: POST, PUT, PATCH, GET, OPTIONS, DELETE
+Access-Control-Max-Age: 3600
+Access-Control-Allow-Headers: x-requested-with, content-type, X-AUTH-TOKEN
+Access-Control-Expose-Headers: X-AUTH-TOKEN
+X-Content-Type-Options: nosniff
+X-Xss-Protection: 1; mode=block
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
+Strict-Transport-Security: max-age=31536000 ; includeSubDomains
+X-Frame-Options: DENY
+Content-Type: application/json;charset=UTF-8
+Transfer-Encoding: chunked
+Date: Sun, 01 May 2016 12:30:03 GMT
+Via: 1.1 vegur
+
+{
+  "timestamp":1462105803298,
+  "status":401,
+  "error":"Unauthorized",
+  "message":"Authentication Failed: Bad credentials",
+  "path":"/api/login"
+}
+\end{lstlisting}

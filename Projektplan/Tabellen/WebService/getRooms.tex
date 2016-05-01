@@ -1,0 +1,31 @@
+\begin{tabularx}{\textwidth}{|l|X|}
+\hline
+\textbf{Title} & \textbf{Show all rooms}
+
+The user must send a valid X-AUTH-TOKEN to be able to see his rooms.
+\\ \hline
+\textbf{URL} &  \colorbox{pregray}{\lstinline{/api/rooms}}\\ \hline
+Method & GET \\ \hline
+
+Success Response & 
+\begin{lstlisting}^^J
+HTTP/1.1 200 OK^^J
+X-Content-Type-Options: nosniff^^J
+X-XSS-Protection: 1; mode=block^^J
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate^^J
+Pragma: no-cache^^J
+Expires: 0^^J
+X-Frame-Options: DENY^^J
+Content-Type: application/json;charset=UTF-8^^J
+Content-Length: 71^^J
+^^J
+[\{"roomId":"d934eb20-4c6f-4d1c-91c5-61cdeddcf843","name":"Wohnzimmer"\}]^^J
+\end{lstlisting}\\ \hline
+
+
+Sample Call & 
+\begin{lstlisting}^^J
+$ curl 'http://localhost:8080/api/rooms' -i -H 'X-AUTH-TOKEN: eyJpZCI6MTEsInVzZ67KDv...'^^J
+\end{lstlisting}\\ \hline
+\end{tabularx}
+

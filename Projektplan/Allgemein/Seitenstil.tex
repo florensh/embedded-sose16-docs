@@ -63,8 +63,9 @@
 \displaywidowpenalty = 10000
 
 % Quellcode-Ausgabe formatieren
-\lstset{numbers=left, numberstyle=\tiny, numbersep=5pt, breaklines=true}
-\lstset{emph={square}, emphstyle=\color{red}, emph={[2]root,base}, emphstyle={[2]\color{blue}}}
+\definecolor{pregray}{HTML}{EFF0F1}
+\lstset{tabsize=2,frame=tlbr,framesep=4pt,framerule=0pt, literate={\ \ }{{\ }}1, basicstyle=\footnotesize\ttfamily, numbers=none, breaklines=true, frame=none, backgroundcolor=\color{pregray}}
+\lstset{belowskip=0em, aboveskip=0em,xrightmargin=10pt,xleftmargin=10pt, columns=fullflexible, basicstyle=\ttfamily\scriptsize, frame=tlbr,framesep=10pt,framerule=0pt, emph={square}, emphstyle=\color{red}, emph={[2]root,base}, emphstyle={[2]\color{blue}}}
 
 \counterwithout{footnote}{section} % Fußnoten fortlaufend durchnummerieren
 \setcounter{tocdepth}{\subsubsectionlevel} % im Inhaltsverzeichnis werden die Kapitel bis zum Level der subsubsection übernommen
@@ -78,3 +79,5 @@
 % Tabellenfärbung:
 \definecolor{heading}{rgb}{0.64,0.78,0.86}
 \definecolor{odd}{rgb}{0.9,0.9,0.9}
+
+\renewcommand{\arraystretch}{1.5}

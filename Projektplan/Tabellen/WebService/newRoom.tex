@@ -1,0 +1,35 @@
+\begin{tabularx}{\textwidth}{|l|X|}
+\hline
+\textbf{Title} & \textbf{Register a new room}
+
+The user musst send a valid X-AUTH-TOKEN in order to register a new room. The room will be linked to the user.
+\\ \hline
+\textbf{URL} &  \colorbox{pregray}{\lstinline{/api/rooms/:id}}\\ \hline
+Method & PUT \\ \hline
+URL Params & \textbf{Required:}\newline \colorbox{pregray}{\lstinline{id=[String]}} \newline example: id=d934eb20-4c6f-4d1c-91c5-61cdeddcf843  \\ \hline
+Data Params & 
+\begin{lstlisting}^^J
+\{^^J
+  "name":[String]^^J
+\}^^J
+\end{lstlisting}\\ \hline
+Success Response & 
+\begin{lstlisting}^^J
+HTTP/1.1 200 OK^^J
+X-Content-Type-Options: nosniff^^J
+X-XSS-Protection: 1; mode=block^^J
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate^^J
+Pragma: no-cache^^J
+Expires: 0^^J
+X-Frame-Options: DENY^^J
+Content-Type: text/plain;charset=UTF-8^^J
+Content-Length: 28^^J
+^^J
+room successfully registered^^J
+\end{lstlisting}\\ \hline
+Sample Call & 
+\begin{lstlisting}^^J
+$ curl 'http://localhost:8080/api/rooms/d934eb20-4c6f-4d1c-91c5-61cdeddcf843' -i -X PUT -H 'Content-Type: application/json' -H 'X-AUTH-TOKEN: eyJpZCI6MTEsInVzZXJuYW...' -d '\{"name":"Wohnzimmer"\}'^^J
+\end{lstlisting}\\ \hline
+\end{tabularx}
+

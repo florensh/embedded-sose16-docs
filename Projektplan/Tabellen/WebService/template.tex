@@ -1,0 +1,34 @@
+\begin{tabularx}{\textwidth}{|l|X|}
+\hline
+\textbf{Title} & \textbf{Add a new Device to a Room}\\ \hline
+\textbf{URL} &  \colorbox{pregray}{\lstinline{/rooms/:id/devices}}\\ \hline
+Method & POST \\ \hline
+URL Params & \textbf{Required:}\newline \colorbox{pregray}{\lstinline{id=[alphanumeric]}} \newline example: id=d934eb20-4c6f-4d1c-91c5-61cdeddcf843 \newline \newline \textbf{Optional:}\newline lasdjf \\ \hline
+Data Params & 
+\begin{lstlisting}^^J
+\{^^J
+  "roomId":"d934eb20-4c6f-4d1c-91c5-61cdeddcf843",^^J
+  "name":null^^J
+\}^^J
+\end{lstlisting}\\ \hline
+Success Response & 
+\begin{lstlisting}^^J
+HTTP/1.1 200 OK^^J
+X-Content-Type-Options: nosniff^^J
+X-XSS-Protection: 1; mode=block^^J
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate^^J
+Pragma: no-cache^^J
+Expires: 0^^J
+X-Frame-Options: DENY^^J
+Content-Type: application/json;charset=UTF-8^^J
+Content-Length: 2^^J
+^^J
+[]^^J
+\end{lstlisting}\\ \hline
+Error Response & \\ \hline
+Sample Call & 
+\begin{lstlisting}^^J
+  $ curl 'http://localhost:8080/api/rooms' -i -H 'X-AUTH-TOKEN: eyJpZCI6MTEsInVz... -H 'Accept: application/json'^^J
+\end{lstlisting}\\ \hline
+\end{tabularx}
+

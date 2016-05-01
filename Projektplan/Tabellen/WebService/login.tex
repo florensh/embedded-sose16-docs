@@ -1,0 +1,50 @@
+\begin{tabularx}{\textwidth}{|l|X|}
+\hline
+Title & Login as existing user
+
+The login request must contain username and password credentials. The response contains a X-AUTH-TOKEN-Header for future api requests.\\ \hline
+URL &  \colorbox{pregray}{\lstinline{/api/login}}\\ \hline
+Method & POST \\ \hline
+
+
+Data Params & 
+\begin{lstlisting}[resetmargins=true]^^J
+\{^^J
+  "username":[String],^^J
+  "password":[alphanumeric]^^J
+\}^^J
+\end{lstlisting}\\ \hline
+
+
+Success Response & 
+\begin{lstlisting}^^J
+HTTP/1.1 200 OK^^J
+X-Content-Type-Options: nosniff^^J
+X-XSS-Protection: 1; mode=block^^J
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate^^J
+Pragma: no-cache^^J
+Expires: 0^^J
+X-Frame-Options: DENY^^J
+X-AUTH-TOKEN: eyJpZCI6MTEsInVz...^^J
+\end{lstlisting}\\ \hline
+
+
+Error Response & 
+\begin{lstlisting}^^J
+HTTP/1.1 401 Unauthorized^^J
+X-Content-Type-Options: nosniff^^J
+X-XSS-Protection: 1; mode=block^^J
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate^^J
+Pragma: no-cache^^J
+Expires: 0^^J
+X-Frame-Options: DENY^^J
+^^J
+\end{lstlisting}\\ \hline
+
+
+Sample Call & 
+\begin{lstlisting}^^J
+$ curl 'http://localhost:8080/api/login' -i -X POST -H 'Content-Type: application/json' -d^^J '\{"username":"user", "password": "user"\}'^^J
+\end{lstlisting}\\ \hline
+\end{tabularx}
+

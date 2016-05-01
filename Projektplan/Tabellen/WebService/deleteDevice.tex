@@ -1,0 +1,41 @@
+\begin{tabularx}{\textwidth}{|l|X|}
+\hline
+\textbf{Title} & \textbf{Delete a device}\\ \hline
+\textbf{URL} &  \colorbox{pregray}{\lstinline{/api/rooms/:roomId/devices/:deviceId}}\\ \hline
+Method & DELETE \\ \hline
+URL Params & \textbf{Required:}\newline \colorbox{pregray}{\lstinline{roomId=[alphanumeric]}} \newline example: id=d934eb20-4c6f-4d1c-91c5-61cdeddcf843 \newline \newline  \colorbox{pregray}{\lstinline{deviceId=[alphanumeric]}} \newline example: id=a934eb20-4c6f-4d1c-91c5-61cdeddcf843 \\ \hline
+
+Success Response & 
+\begin{lstlisting}^^J
+HTTP/1.1 200 OK^^J
+X-Content-Type-Options: nosniff^^J
+X-XSS-Protection: 1; mode=block^^J
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate^^J
+Pragma: no-cache^^J
+Expires: 0^^J
+X-Frame-Options: DENY^^J
+Content-Type: text/plain;charset=UTF-8^^J
+Content-Length: 27^^J
+^^J
+device successfully removed^^J
+\end{lstlisting}\\ \hline
+Error Response & 
+\begin{lstlisting}^^J
+HTTP/1.1 404 Not Found^^J
+X-Content-Type-Options: nosniff^^J
+X-XSS-Protection: 1; mode=block^^J
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate^^J
+Pragma: no-cache^^J
+Expires: 0^^J
+X-Frame-Options: DENY^^J
+Content-Type: text/plain;charset=UTF-8^^J
+Content-Length: 16^^J
+^^J
+device not found^^J
+\end{lstlisting}\\ \hline
+Sample Call & 
+\begin{lstlisting}^^J
+$ curl 'http://localhost:8080/api/rooms/d934eb20-4c6f-4d1c-91c5-61cdeddcf843/devices/a614eb20-4c6f-4d1c-91c5-61cdeddcf843' -i -X DELETE -H 'X-AUTH-TOKEN: eyJpZCI6MTEsInVzZXJuYW1...'^^J
+\end{lstlisting}\\ \hline
+\end{tabularx}
+

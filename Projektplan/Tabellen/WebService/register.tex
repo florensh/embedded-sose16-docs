@@ -1,0 +1,57 @@
+\begin{tabularx}{\textwidth}{|l|X|}
+\hline
+Title & Register as a new user
+
+After a successful registration the user is authenticated. The response contains a X-AUTH-TOKEN-Header for future api requests.\\ \hline
+URL &  \colorbox{pregray}{\lstinline{/api/register}}\\ \hline
+Method & POST \\ \hline
+
+
+Data Params & 
+\begin{lstlisting}^^J
+\{^^J
+  "username":[String],^^J
+  "password":[alphanumeric]^^J
+\}^^J
+\end{lstlisting}\\ \hline
+
+
+Success Response & 
+\begin{lstlisting}^^J
+HTTP/1.1 200 OK^^J
+X-Content-Type-Options: nosniff^^J
+X-XSS-Protection: 1; mode=block^^J
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate^^J
+Pragma: no-cache^^J
+Expires: 0^^J
+X-Frame-Options: DENY^^J
+X-AUTH-TOKEN: eyJpZCI6MTIsInVz...^^J
+Content-Type: application/json;charset=UTF-8^^J
+Content-Length: 72^^J
+^^J
+user successfully registered^^J
+\end{lstlisting}\\ \hline
+
+
+Error Response & 
+\begin{lstlisting}^^J
+HTTP/1.1 422 Unprocessable Entity^^J
+X-Content-Type-Options: nosniff^^J
+X-XSS-Protection: 1; mode=block^^J
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate^^J
+Pragma: no-cache^^J
+Expires: 0^^J
+X-Frame-Options: DENY^^J
+Content-Type: text/plain;charset=UTF-8^^J
+Content-Length: 17^^J
+^^J
+password to short^^J
+\end{lstlisting}\\ \hline
+
+
+Sample Call & 
+\begin{lstlisting}^^J
+$ curl 'http://localhost:8080/api/register' -i -X POST -H 'Content-Type: application/json' -d^^J '\{"username":"testuser", "password": "testpassword"\}'^^J
+\end{lstlisting}\\ \hline
+\end{tabularx}
+
