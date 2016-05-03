@@ -1,0 +1,37 @@
+@startuml
+actor User
+participant "App" as App
+participant "Backend" as Backend
+participant "Raum_XYZ" as RS << Raumserver >>
+participant "Heizung_UVW" as Heizung <<Heizungssteuerung>>
+
+autonumber
+Heizung -> RS: register
+RS -> Heizung: ACK!
+User -> App: enter username and password
+App -> Backend: HTTP POST /api/register
+Backend -> App: HTTP 200 OK
+App -> User: successfully registered
+
+User -> RS: enter username and password
+RS -> Backend: HTTP POST /api/login
+Backend -> RS: HTTP 200 OK
+RS -> User: successfully loged in
+
+RS -> Backend: HTTP PUT /api/rooms/XYZ
+Backend -> RS: HTTP 201 Created
+
+RS -> Backend: HTTP PUT /api/rooms/XYZ/devices/UVW
+Backend -> RS: HTTP 201 Created
+
+User -> App: Show all rooms
+App -> Backend: HTTP GET /api/rooms
+Backend -> App: HTTP 200 OK
+App -> User: List of rooms
+
+User -> App: Show all devices of room XYZ
+App -> Backend: HTTP GET /api/rooms/XYZ/devices
+Backend -> App: HTTP 200 OK
+App -> User: List of devices
+
+@enduml

@@ -1,16 +1,17 @@
 @startuml
 
-frame "ZigBee Network" {
+
   node "Raspberry Pi" {
-    component "Heizungssteuerungsserver"
+    database Raum_DB
+    component "Raumserver"
   }
   node "Heizungssteuerung"
   node "Temperatursensor"
 
-}
 
-cloud cloud {
-  database Database
+
+cloud Heroku {
+  database Backend_DB
   node Tomcat {
     component "Backend"
 
@@ -20,14 +21,15 @@ cloud cloud {
 
 
 node Smartphone {
-  component Heizungssteuerungsapp
+  component App
 }
 
-Heizungssteuerungsapp -- Backend
-Heizungssteuerungsserver -- Heizungssteuerung
-Heizungssteuerungsserver -- Temperatursensor
-Heizungssteuerungsserver -- Backend
-Backend -- Database
+App -- Backend
+Raumserver -- Raum_DB
+Raumserver -- Heizungssteuerung
+Raumserver -- Temperatursensor
+Raumserver -- Backend
+Backend -- Backend_DB
 
 
 @enduml

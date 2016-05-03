@@ -1,7 +1,8 @@
 @startuml
-participant "Heizungssteuerungsapp" as App
+actor User
+participant "App" as App
 participant "Backend" as Backend
-participant "Raum_001" as HS << Heizungssteuerungsserver >>
+participant "Raum_001" as HS << Raumserver >>
 participant "Heizung_001_1" as Heizung <<Heizungssteuerung>>
 
 == register / manage rooms ==
