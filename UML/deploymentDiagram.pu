@@ -4,9 +4,10 @@
   node "Raspberry Pi" {
     database Raum_DB
     component "Raumserver"
+    component "Temperatursensor"
   }
-  node "Heizungssteuerung"
-  node "Temperatursensor"
+  node "Heizungsventil"
+
 
 
 
@@ -14,11 +15,8 @@ cloud Heroku {
   database Backend_DB
   node Tomcat {
     component "Backend"
-
   }
 }
-
-
 
 node Smartphone {
   component App
@@ -26,7 +24,7 @@ node Smartphone {
 
 App -- Backend
 Raumserver -- Raum_DB
-Raumserver -- Heizungssteuerung
+Raumserver -- Heizungsventil
 Raumserver -- Temperatursensor
 Raumserver -- Backend
 Backend -- Backend_DB
