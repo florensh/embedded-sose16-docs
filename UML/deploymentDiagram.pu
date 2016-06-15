@@ -1,33 +1,40 @@
 @startuml
 
 
-  node "Raspberry Pi" {
-    database Raum_DB
-    component "Raumserver"
-    component "Temperatursensor"
+  node "Raspberry Pi" <<device>> {
+    [Room Server]
+    database "Room Server DB" {
+      [Room Data] - [Room Server]
+    }
   }
-  node "Heizungsventil"
+
+  node "Temperature_Sensor" <<device>> #white
+  node "Heating Valve" <<device>> {
+    [Valve Controller] - [Room Server]
+  }
 
 
 
 
-cloud Heroku {
-  database Backend_DB
-  node Tomcat {
-    component "Backend"
+cloud Heroku <<platform service>>{
+
+    [Cloud Backend]
+    [Cloud Backend] - [Room Server]
+
+database "Backend DB"{
+
+  [User Data] - [Cloud Backend]
+}
+
+}
+
+node Smartphone <<device>> {
+  node "Device OS" <<platform>> {
+    [Home Automation Client] - [Cloud Backend] 
   }
 }
 
-node Smartphone {
-  component App
-}
-
-App -- Backend
-Raumserver -- Raum_DB
-Raumserver -- Heizungsventil
-Raumserver -- Temperatursensor
-Raumserver -- Backend
-Backend -- Backend_DB
+Temperature_Sensor - [Room Server]
 
 
 @enduml

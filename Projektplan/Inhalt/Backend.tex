@@ -1,10 +1,10 @@
-\section{Backend}
+\subsubsection{Backend}
 Das Backend kann über ein API von der App angesprochen werden, um Räume und Geräte zu verwalten und Kommandos an diese zu versenden.
 
-\subsection{API}
+\paragraph{API}\mbox{}\\
 Das API ist als RESTful Web Service realisiert. Ressourcen können über HTTP mit den Methoden \colorbox{pregray}{\lstinline{GET}}, \colorbox{pregray}{\lstinline{POST}}, \colorbox{pregray}{\lstinline{PUT}} und \colorbox{pregray}{\lstinline{DELETE}} angesprochen werden. Eine genaue Auflistung der API-Methoden ist im Anhang zu finden.
 
-\subsubsection{Schema}
+\paragraph{Schema}\mbox{}\\
 Sämtlicher Zugriff auf das API erfolgt über HTTPS und kann über \colorbox{pregray}{\lstinline{https://enigmatic-waters-31128.herokuapp.com}} erreicht werden.
 
 \vspace{2em}
@@ -41,7 +41,7 @@ Via: 1.1 vegur
 
 Sowohl beim Abfragen einer Liste als auch beim Abfragen einzelner Ressourcen beinhaltet die Antwort alle Attribute der Ressource.
 
-\subsubsection{Authentifizierung}
+\subparagraph{Authentifizierung}\mbox{}\\
 Anfragen, die eine Authentifizierung erfordern, geben als Antwort \colorbox{pregray}{\lstinline{403 Forbidden}} zurück. Zur Authentifizierung muss im Header das Feld \colorbox{pregray}{\lstinline{X-AUTH-TOKEN}} gesetzt sein. Das entsprechende Token wird nach einer erfolgreichen Login-Anfrage erhalten.
 
 \paragraph{Authentifizierung mit einem Token}\mbox{}\\
@@ -49,7 +49,7 @@ Anfragen, die eine Authentifizierung erfordern, geben als Antwort \colorbox{preg
 $ curl 'https://enigmatic-waters-31128.herokuapp.com' -i -H 'X-AUTH-TOKEN: TOKEN'
 \end{lstlisting}
 
-\subsubsection{Login}
+\subparagraph{Login}\mbox{}\\
 Zum Erhalt eines Tokens muss eine Loginanfrage gestellt werden. Diese enthält die Attribute username und password.
 \vspace{2em}
 \begin{lstlisting}
@@ -78,7 +78,7 @@ Via: 1.1 vegur
 \vspace{2em}
 Das Token aus dem Response-Header-Feld \colorbox{pregray}{\lstinline{X-AUTH-TOKEN}} muss bei zukünftigen Anfragen enthalten sein.
 
-\subsubsection{Fehlgeschlagener Login}
+\paragraph{Fehlgeschlagener Login}\mbox{}\\
 Loginanfragen mit ungültigen Benutzerdaten werden mit \colorbox{pregray}{\lstinline{401 Unauthorized}} beantwortet.
 \vspace{2em}
 \begin{lstlisting}
