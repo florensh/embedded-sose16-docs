@@ -1,17 +1,17 @@
 \begin{tabularx}{\textwidth}{|l|X|}
 \hline
-\textbf{Title} & \textbf{Add a new Device to a Room}\\ \hline
-\textbf{URL} &  \colorbox{pregray}{\lstinline{/api/rooms/:roomId/devices/:deviceId}}\\ \hline
-Method & PUT \\ \hline
-URL Params & \textbf{Required:}\newline \colorbox{pregray}{\lstinline{roomId=[alphanumeric]}} \newline example: id=d934eb20-4c6f-4d1c-91c5-61cdeddcf843 \newline \newline  \colorbox{pregray}{\lstinline{deviceId=[alphanumeric]}} \newline example: id=a934eb20-4c6f-4d1c-91c5-61cdeddcf843 \\ \hline
-Data Params & 
+Bezeichnung & Ein neues Gerät registrieren\\ \hline
+URL &  \colorbox{pregray}{\lstinline{/api/rooms/:roomId/devices/:deviceId}}\\ \hline
+Methode & PUT \\ \hline
+URL-Parameter & \textbf{erforderlich:}\newline \colorbox{pregray}{\lstinline{roomId=[alphanumeric]}} \newline Beispiel: id=d934eb20-4c6f-4d1c-91c5-61cdeddcf843 \newline \newline  \colorbox{pregray}{\lstinline{deviceId=[alphanumeric]}} \newline Beispiel: id=a934eb20-4c6f-4d1c-91c5-61cdeddcf843 \\ \hline
+Parameter & 
 \begin{lstlisting}^^J
 \{^^J
   "type":["HEATING" | "LIGHT"],^^J
   "name":[String]^^J
 \}^^J
 \end{lstlisting}\\ \hline
-Success Response & 
+Erfolgsantwort & 
 \begin{lstlisting}^^J
 HTTP/1.1 200 OK^^J
 X-Content-Type-Options: nosniff^^J
@@ -24,7 +24,7 @@ Content-Length: 17^^J
 ^^J
 device registered^^J
 \end{lstlisting}\\ \hline
-Error Response & 
+Fehlerantwort & 
 \begin{lstlisting}^^J
 HTTP/1.1 404 Not Found^^J
 X-Content-Type-Options: nosniff^^J
@@ -37,7 +37,7 @@ Content-Length: 14^^J
 ^^J
 room not found^^J
 \end{lstlisting}\\ \hline
-Sample Call & 
+Beispiel & 
 \begin{lstlisting}^^J
 $ curl 'http://localhost:8080/api/rooms/d934eb20-4c6f-4d1c-91c5-61cdeddcf843/devices/a614eb20-4c6f-4d1c-91c5-61cdeddcf843' -i -X PUT -H 'Content-Type: application/json' -H 'X-AUTH-TOKEN: eyJpZCI6MT...' -d '\{"deviceId":"a614eb20-4c6f-4d1c-91c5-61cdeddcf843","name":"Licht","type":"LIGHT"\}'^^J
 \end{lstlisting}\\ \hline

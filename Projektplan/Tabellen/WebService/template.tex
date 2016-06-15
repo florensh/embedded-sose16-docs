@@ -1,17 +1,17 @@
 \begin{tabularx}{\textwidth}{|l|X|}
 \hline
-\textbf{Title} & \textbf{Add a new Device to a Room}\\ \hline
+\textbf{Bezeichnung} & \textbf{Add a new Device to a Room}\\ \hline
 \textbf{URL} &  \colorbox{pregray}{\lstinline{/rooms/:id/devices}}\\ \hline
-Method & POST \\ \hline
-URL Params & \textbf{Required:}\newline \colorbox{pregray}{\lstinline{id=[alphanumeric]}} \newline example: id=d934eb20-4c6f-4d1c-91c5-61cdeddcf843 \newline \newline \textbf{Optional:}\newline lasdjf \\ \hline
-Data Params & 
+Methode & POST \\ \hline
+URL-Parameter & \textbf{erforderlich:}\newline \colorbox{pregray}{\lstinline{id=[alphanumeric]}} \newline Beispiel: id=d934eb20-4c6f-4d1c-91c5-61cdeddcf843 \newline \newline \textbf{Optional:}\newline lasdjf \\ \hline
+Parameter & 
 \begin{lstlisting}^^J
 \{^^J
   "roomId":"d934eb20-4c6f-4d1c-91c5-61cdeddcf843",^^J
   "name":null^^J
 \}^^J
 \end{lstlisting}\\ \hline
-Success Response & 
+Erfolgsantwort & 
 \begin{lstlisting}^^J
 HTTP/1.1 200 OK^^J
 X-Content-Type-Options: nosniff^^J
@@ -25,8 +25,8 @@ Content-Length: 2^^J
 ^^J
 []^^J
 \end{lstlisting}\\ \hline
-Error Response & \\ \hline
-Sample Call & 
+Fehlerantwort & \\ \hline
+Beispiel & 
 \begin{lstlisting}^^J
   $ curl 'http://localhost:8080/api/rooms' -i -H 'X-AUTH-TOKEN: eyJpZCI6MTEsInVz... -H 'Accept: application/json'^^J
 \end{lstlisting}\\ \hline

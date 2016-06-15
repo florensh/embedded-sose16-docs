@@ -1,11 +1,11 @@
 \begin{tabularx}{\textwidth}{|l|X|}
 \hline
-\textbf{Title} & \textbf{Delete a device}\\ \hline
-\textbf{URL} &  \colorbox{pregray}{\lstinline{/api/rooms/:roomId/devices/:deviceId}}\\ \hline
-Method & DELETE \\ \hline
-URL Params & \textbf{Required:}\newline \colorbox{pregray}{\lstinline{roomId=[alphanumeric]}} \newline example: id=d934eb20-4c6f-4d1c-91c5-61cdeddcf843 \newline \newline  \colorbox{pregray}{\lstinline{deviceId=[alphanumeric]}} \newline example: id=a934eb20-4c6f-4d1c-91c5-61cdeddcf843 \\ \hline
+Bezeichnung & Ein spezifisches Gerät aus der Datenbank entfernen\\ \hline
+URL &  \colorbox{pregray}{\lstinline{/api/rooms/:roomId/devices/:deviceId}}\\ \hline
+Methode & DELETE \\ \hline
+URL-Parameter & \textbf{erforderlich:}\newline \colorbox{pregray}{\lstinline{roomId=[alphanumeric]}} \newline Beispiel: id=d934eb20-4c6f-4d1c-91c5-61cdeddcf843 \newline \newline  \colorbox{pregray}{\lstinline{deviceId=[alphanumeric]}} \newline Beispiel: id=a934eb20-4c6f-4d1c-91c5-61cdeddcf843 \\ \hline
 
-Success Response & 
+Erfolgsantwort & 
 \begin{lstlisting}^^J
 HTTP/1.1 200 OK^^J
 X-Content-Type-Options: nosniff^^J
@@ -19,7 +19,7 @@ Content-Length: 27^^J
 ^^J
 device successfully removed^^J
 \end{lstlisting}\\ \hline
-Error Response & 
+Fehlerantwort & 
 \begin{lstlisting}^^J
 HTTP/1.1 404 Not Found^^J
 X-Content-Type-Options: nosniff^^J
@@ -33,7 +33,7 @@ Content-Length: 16^^J
 ^^J
 device not found^^J
 \end{lstlisting}\\ \hline
-Sample Call & 
+Beispiel & 
 \begin{lstlisting}^^J
 $ curl 'http://localhost:8080/api/rooms/d934eb20-4c6f-4d1c-91c5-61cdeddcf843/devices/a614eb20-4c6f-4d1c-91c5-61cdeddcf843' -i -X DELETE -H 'X-AUTH-TOKEN: eyJpZCI6MTEsInVzZXJuYW1...'^^J
 \end{lstlisting}\\ \hline

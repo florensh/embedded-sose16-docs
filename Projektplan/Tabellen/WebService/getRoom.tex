@@ -1,14 +1,11 @@
 \begin{tabularx}{\textwidth}{|l|X|}
 \hline
-\textbf{Title} & \textbf{Get a specific room object}
+Bezeichnung & Einen spezifischen Raum abrufen\\ \hline
+URL &  \colorbox{pregray}{\lstinline{/api/rooms/:id}}\\ \hline
+Methode & GET \\ \hline
+URL-Parameter & \textbf{erforderlich:}\newline \colorbox{pregray}{\lstinline{id=[alphanumeric]}} \newline Beispiel: id=d934eb20-4c6f-4d1c-91c5-61cdeddcf843\\ \hline
 
-The user must send a valid X-AUTH-TOKEN to be able to see a specific room.
-\\ \hline
-\textbf{URL} &  \colorbox{pregray}{\lstinline{/api/rooms/:id}}\\ \hline
-Method & GET \\ \hline
-URL Params & \textbf{Required:}\newline \colorbox{pregray}{\lstinline{id=[alphanumeric]}} \newline example: id=d934eb20-4c6f-4d1c-91c5-61cdeddcf843\\ \hline
-
-Success Response & 
+Erfolgsantwort & 
 \begin{lstlisting}^^J
 HTTP/1.1 200 OK^^J
 X-Content-Type-Options: nosniff^^J
@@ -22,7 +19,7 @@ Content-Length: 69^^J
 ^^J
 {"roomId":"d934eb20-4c6f-4d1c-91c5-61cdeddcf843","name":"Wohnzimmer"}^^J
 \end{lstlisting}\\ \hline
-Error Response & 
+Fehlerantwort & 
 
 \begin{lstlisting}^^J
 HTTP/1.1 404 Not Found^^J
@@ -35,7 +32,7 @@ X-Frame-Options: DENY^^J
 \end{lstlisting}\\ \hline
 
 \\ \hline
-Sample Call & 
+Beispiel & 
 \begin{lstlisting}^^J
 $ curl 'http://localhost:8080/api/rooms/d934eb20-4c6f-4d1c-91c5-61cdeddcf843' -i -H 'X-AUTH-TOKEN: eyJpZCI6MTEsInVzZXJu...'^^J
 \end{lstlisting}\\ \hline

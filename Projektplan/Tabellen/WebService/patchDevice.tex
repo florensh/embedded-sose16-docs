@@ -1,23 +1,28 @@
 \begin{tabularx}{\textwidth}{|l|X|}
 \hline
-Bezeichnung & Ein spezifisches Gerät abrufen\\ \hline
+Bezeichnung & Verändern von Gerätedaten\\ \hline
 URL &  \colorbox{pregray}{\lstinline{/api/rooms/:roomId/devices/:deviceId}}\\ \hline
-Methode & GET \\ \hline
+Methode & PATCH \\ \hline
 URL-Parameter & \textbf{erforderlich:}\newline \colorbox{pregray}{\lstinline{roomId=[alphanumeric]}} \newline Beispiel: id=d934eb20-4c6f-4d1c-91c5-61cdeddcf843 \newline \newline  \colorbox{pregray}{\lstinline{deviceId=[alphanumeric]}} \newline Beispiel: id=a934eb20-4c6f-4d1c-91c5-61cdeddcf843 \\ \hline
-
+Parameter & 
+\begin{lstlisting}^^J
+\{^^J
+  "targetValue":[numeric],^^J
+  "value":[numeric]^^J
+\}^^J
+\end{lstlisting}\\ \hline
 Erfolgsantwort & 
 \begin{lstlisting}^^J
 HTTP/1.1 200 OK^^J
 X-Content-Type-Options: nosniff^^J
 X-XSS-Protection: 1; mode=block^^J
 Cache-Control: no-cache, no-store, max-age=0, must-revalidate^^J
-Pragma: no-cache^^J
 Expires: 0^^J
 X-Frame-Options: DENY^^J
-Content-Type: application/json;charset=UTF-8^^J
-Content-Length: 81^^J
+Content-Type: text/plain;charset=UTF-8^^J
+Content-Length: 17^^J
 ^^J
-\{"deviceId":"a614eb20-4c6f-4d1c-91c5-61cdeddcf843","name":"Licht","type":"LIGHT"\}^^J
+device updated^^J
 \end{lstlisting}\\ \hline
 Fehlerantwort & 
 \begin{lstlisting}^^J
@@ -25,13 +30,16 @@ HTTP/1.1 404 Not Found^^J
 X-Content-Type-Options: nosniff^^J
 X-XSS-Protection: 1; mode=block^^J
 Cache-Control: no-cache, no-store, max-age=0, must-revalidate^^J
-Pragma: no-cache^^J
 Expires: 0^^J
 X-Frame-Options: DENY^^J
+Content-Type: text/plain;charset=UTF-8^^J
+Content-Length: 14^^J
+^^J
+room not found^^J
 \end{lstlisting}\\ \hline
 Beispiel & 
 \begin{lstlisting}^^J
-$ curl 'http://localhost:8080/api/rooms/d934eb20-4c6f-4d1c-91c5-61cdeddcf843/devices/a614eb20-4c6f-4d1c-91c5-61cdeddcf843' -i -H 'X-AUTH-TOKEN: eyJpZCI6MTEsInVzZXJuYW1lIjoi...'^^J
+$ curl 'http://localhost:8080/api/rooms/d934eb20-4c6f-4d1c-91c5-61cdeddcf843/devices/a614eb20-4c6f-4d1c-91c5-61cdeddcf843' -i -X PATCH -H 'Content-Type: application/json' -H 'X-AUTH-TOKEN: eyJpZCI6MT...' -d '\{"deviceId":"a614eb20-4c6f-4d1c-91c5-61cdeddcf843","targetValue":"0"\}'^^J
 \end{lstlisting}\\ \hline
 \end{tabularx}
 

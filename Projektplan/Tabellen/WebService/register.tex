@@ -1,13 +1,11 @@
 \begin{tabularx}{\textwidth}{|l|X|}
 \hline
-Title & Register as a new user
-
-After a successful registration the user is authenticated. The response contains a X-AUTH-TOKEN-Header for future api requests.\\ \hline
+Bezeichnung & Registrieren eines neuen Benutzers\\ \hline
 URL &  \colorbox{pregray}{\lstinline{/api/register}}\\ \hline
-Method & POST \\ \hline
+Methode & POST \\ \hline
 
 
-Data Params & 
+Parameter & 
 \begin{lstlisting}^^J
 \{^^J
   "username":[String],^^J
@@ -16,7 +14,7 @@ Data Params &
 \end{lstlisting}\\ \hline
 
 
-Success Response & 
+Erfolgsantwort & 
 \begin{lstlisting}^^J
 HTTP/1.1 200 OK^^J
 X-Content-Type-Options: nosniff^^J
@@ -33,7 +31,7 @@ user successfully registered^^J
 \end{lstlisting}\\ \hline
 
 
-Error Response & 
+Fehlerantwort & 
 \begin{lstlisting}^^J
 HTTP/1.1 422 Unprocessable Entity^^J
 X-Content-Type-Options: nosniff^^J
@@ -49,7 +47,7 @@ password to short^^J
 \end{lstlisting}\\ \hline
 
 
-Sample Call & 
+Beispiel & 
 \begin{lstlisting}^^J
 $ curl 'http://localhost:8080/api/register' -i -X POST -H 'Content-Type: application/json' -d^^J '\{"username":"testuser", "password": "testpassword"\}'^^J
 \end{lstlisting}\\ \hline

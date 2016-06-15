@@ -1,13 +1,10 @@
 \begin{tabularx}{\textwidth}{|l|X|}
 \hline
-\textbf{Title} & \textbf{Show all rooms}
+Bezeichnung & Eine Liste aller Räume abrufen\\ \hline
+URL &  \colorbox{pregray}{\lstinline{/api/rooms}}\\ \hline
+Methode & GET \\ \hline
 
-The user must send a valid X-AUTH-TOKEN to be able to see his rooms.
-\\ \hline
-\textbf{URL} &  \colorbox{pregray}{\lstinline{/api/rooms}}\\ \hline
-Method & GET \\ \hline
-
-Success Response & 
+Erfolgsantwort & 
 \begin{lstlisting}^^J
 HTTP/1.1 200 OK^^J
 X-Content-Type-Options: nosniff^^J
@@ -23,7 +20,7 @@ Content-Length: 71^^J
 \end{lstlisting}\\ \hline
 
 
-Sample Call & 
+Beispiel & 
 \begin{lstlisting}^^J
 $ curl 'http://localhost:8080/api/rooms' -i -H 'X-AUTH-TOKEN: eyJpZCI6MTEsInVzZ67KDv...'^^J
 \end{lstlisting}\\ \hline

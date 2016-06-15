@@ -1,11 +1,11 @@
 \begin{tabularx}{\textwidth}{|l|X|}
 \hline
-\textbf{Title} & \textbf{Show all devices of a room}\\ \hline
-\textbf{URL} &  \colorbox{pregray}{\lstinline{/api/rooms/:id/devices}}\\ \hline
-Method & GET \\ \hline
-URL Params & \textbf{Required:}\newline \colorbox{pregray}{\lstinline{id=[alphanumeric]}} \newline example: id=d934eb20-4c6f-4d1c-91c5-61cdeddcf843\\ \hline
+Bezeichnung & Alle Geräte eines Raumes auflisten\\ \hline
+URL &  \colorbox{pregray}{\lstinline{/api/rooms/:id/devices}}\\ \hline
+Methode & GET \\ \hline
+URL-Parameter & \textbf{erforderlich:}\newline \colorbox{pregray}{\lstinline{id=[alphanumeric]}} \newline Beispiel: id=d934eb20-4c6f-4d1c-91c5-61cdeddcf843\\ \hline
 
-Success Response & 
+Erfolgsantwort & 
 \begin{lstlisting}^^J
 HTTP/1.1 200 OK^^J
 X-Content-Type-Options: nosniff^^J
@@ -19,7 +19,7 @@ Content-Length: 83^^J
 ^^J
 [\{"deviceId":"a614eb20-4c6f-4d1c-91c5-61cdeddcf843","name":"Licht","type":"LIGHT"\}]^^J
 \end{lstlisting}\\ \hline
-Error Response & 
+Fehlerantwort & 
 \begin{lstlisting}^^J
 HTTP/1.1 404 Not Found^^J
 X-Content-Type-Options: nosniff^^J
@@ -29,7 +29,7 @@ Pragma: no-cache^^J
 Expires: 0^^J
 X-Frame-Options: DENY^^J
 \end{lstlisting}\\ \hline
-Sample Call & 
+Beispiel & 
 \begin{lstlisting}^^J
 $ curl 'http://localhost:8080/api/rooms/d934eb20-4c6f-4d1c-91c5-61cdeddcf843/devices' -i -H 'X-AUTH-TOKEN: eyJpZCI6MTEsIyu2ZOL67KDvf1RPcmfC8dA...'^^J
 \end{lstlisting}\\ \hline
