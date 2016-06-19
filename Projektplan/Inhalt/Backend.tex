@@ -1,17 +1,30 @@
-\subsubsection{Backend}
-Das Backend kann über ein API von der App angesprochen werden, um Räume und Geräte zu verwalten und Kommandos an diese zu versenden.
+\subsection{Cloud Backend}
+Das Cloud Backend ist eine in Java geschriebene Anwendung, die über das Internet erreichbar ist und ein RESTful API bietet. Über das API können Räume, Geräte und Benutzerdaten verwalten werden. Darunter fällt beispielsweise das Registrieren von Räumen und Geräten für einen bestimmten Benutzer. Darüberhinaus können Sollwerte der Geräte verändert werden. Die Veränderung wird dem tatsächlichen Gerät \bzw dem Room Server, der es verwaltet, über ein Messaging-Verfahren mitgeteilt (siehe dazu \autoref{Messaging}). Das API wird in \autoref{API} beschrieben. Der Vorgang des Deployments wird in \autoref{Backend_Deployment} erläutert.
 
-\paragraph{API}\mbox{}\\
-Das API ist als RESTful Web Service realisiert. Ressourcen können über HTTP mit den Methoden \colorbox{pregray}{\lstinline{GET}}, \colorbox{pregray}{\lstinline{POST}}, \colorbox{pregray}{\lstinline{PUT}} und \colorbox{pregray}{\lstinline{DELETE}} angesprochen werden. Eine genaue Auflistung der API-Methoden ist im Anhang zu finden.
+\subsubsection{API}\label{API}
+Das API ist als RESTful Web Service realisiert. Ressourcen können über HTTP mit den Methoden \colorbox{pregray}{\lstinline{GET}}, \colorbox{pregray}{\lstinline{POST}}, \colorbox{pregray}{\lstinline{PUT}}, \Code{PATCH} und \colorbox{pregray}{\lstinline{DELETE}} angesprochen werden. Eine genaue Auflistung der API-Methoden ist im Anhang im \autoref{API_Doc} zu finden.
+
+ 
 
 \paragraph{Schema}\mbox{}\\
+Aufgrund des Klassenmodells der Domäne Hausautomatisierung, welches in \Abbildung{CD} dargestellt ist, ergeben sich API Endpoints mit folgender Struktur:
+\Code{/user/rooms/\{roomId\}/devices/\{deviceId\}}.
+
+
+\begin{figure}[htb]
+\centering
+\includegraphicsKeepAspectRatio{classDiagramm.png}{0.5}
+\caption{Klassendiagramm Hausautomatisierung}
+\label{fig:CD}
+\end{figure}
+
+
 Sämtlicher Zugriff auf das API erfolgt über HTTPS und kann über \colorbox{pregray}{\lstinline{https://enigmatic-waters-31128.herokuapp.com}} erreicht werden.
+
+Eine beispielhafte Anfrage ist die Ausgabe des Raumes mit der Identifikation \Code{d934eb20-4c6f-4d1c-91c5-61cdeddcf843}. Dies kann mit einem GET-Request auf folgende URL erreicht werden:\\ \Code{https://enigmatic-waters-31128.herokuapp.com/api/rooms/d934eb20-4c6f-4d1c-91c5-61cdeddcf843}.\\ Das Cloud Backend liefert auf diese Anfrage beispielhaft folgende Antwort:
 
 \vspace{2em}
 \begin{lstlisting}
-$ curl 'https://enigmatic-waters-31128.herokuapp.com/api/rooms/d934eb20-4c6f-4d1c-91c5-61cdeddcf843' 
--i -H 'X-AUTH-TOKEN: TOKEN'
-
 HTTP/1.1 200 OK
 Connection: keep-alive
 Server: Apache-Coyote/1.1
@@ -41,15 +54,15 @@ Via: 1.1 vegur
 
 Sowohl beim Abfragen einer Liste als auch beim Abfragen einzelner Ressourcen beinhaltet die Antwort alle Attribute der Ressource.
 
-\subparagraph{Authentifizierung}\mbox{}\\
-Anfragen, die eine Authentifizierung erfordern, geben als Antwort \colorbox{pregray}{\lstinline{403 Forbidden}} zurück. Zur Authentifizierung muss im Header das Feld \colorbox{pregray}{\lstinline{X-AUTH-TOKEN}} gesetzt sein. Das entsprechende Token wird nach einer erfolgreichen Login-Anfrage erhalten.
+\paragraph{Authentifizierung}\mbox{}\\
+Anfragen, die eine Authentifizierung erfordern, geben im Fehlerfall als Antwort \colorbox{pregray}{\lstinline{403 Forbidden}} zurück. Zur Authentifizierung muss im Header das Feld \colorbox{pregray}{\lstinline{X-AUTH-TOKEN}} gesetzt sein. Das entsprechende Token wird nach einer erfolgreichen Login-Anfrage erhalten.
 
 \paragraph{Authentifizierung mit einem Token}\mbox{}\\
 \begin{lstlisting}
 $ curl 'https://enigmatic-waters-31128.herokuapp.com' -i -H 'X-AUTH-TOKEN: TOKEN'
 \end{lstlisting}
 
-\subparagraph{Login}\mbox{}\\
+\paragraph{Login}\mbox{}\\
 Zum Erhalt eines Tokens muss eine Loginanfrage gestellt werden. Diese enthält die Attribute username und password.
 \vspace{2em}
 \begin{lstlisting}
@@ -112,3 +125,61 @@ Via: 1.1 vegur
   "path":"/api/login"
 }
 \end{lstlisting}
+
+\subsubsection{Messaging}\label{Messaging}
+Bla bla bla.
+
+\subsubsection{Build und Deployment}\label{Backend_Deployment}
+Zum Erstellen der Serverpaketierung kann Gradle verwendet werden. Da das Projekt den Gradle-Wrapper enthält muss Gradle nicht auf dem System installiert sein. Der Befehl zum Erstellen der Serverpaketierung lautet wie folgt:\\
+\vspace{2em}
+\begin{lstlisting}
+gradlew build
+:compileJava UP-TO-DATE
+:processResources UP-TO-DATE
+:classes UP-TO-DATE
+:findMainClass
+:asciidoctor UP-TO-DATE
+:jar
+:bootRepackage
+:assemble
+:check
+:build
+
+BUILD SUCCESSFUL
+
+\end{lstlisting}
+\vspace{2em}
+Der Server kann dann als Java-Programm gestartet werden:\\
+\Code{java -jar build/libs/backend-0.1.0.jar}
+\paragraph{Deployment auf Heroku}\mbox{}\\
+Zur Bereitstellung des Servers bei dem Cloud-Dienstleister Heroku ist auschließlich ein git push auf das Heroku Repository auszuführen\footnote{https://devcenter.heroku.com/articles/deploying-spring-boot-apps-to-heroku}:
+\vspace{2em}
+\begin{lstlisting}
+git push heroku master
+Initializing repository, done.
+Counting objects: 110, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (87/87), done.
+Writing objects: 100% (110/110), 212.71 KiB | 0 bytes/s, done.
+Total 110 (delta 30), reused 0 (delta 0)
+
+-----> Java app detected
+-----> Installing OpenJDK 1.8... done
+-----> Installing Maven 3.3.3... done
+-----> Executing: mvn -B -DskipTests=true clean install
+       [INFO] Scanning for projects...
+...
+       [INFO] ------------------------------------------------------------------------
+       [INFO] BUILD SUCCESS
+       [INFO] ------------------------------------------------------------------------
+       [INFO] Total time: 11.417s
+       [INFO] Finished at: Thu Sep 11 17:16:38 UTC 2014
+       [INFO] Final Memory: 21M/649M
+       [INFO] ------------------------------------------------------------------------
+-----> Discovering process types
+       Procfile declares types -> web
+
+\end{lstlisting}
+\vspace{2em}
+Die Anwendung kann anschließend unter folgender URL erreicht werden:\\
+\Code{https://enigmatic-waters-31128.herokuapp.com}\\

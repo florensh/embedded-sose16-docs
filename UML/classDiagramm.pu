@@ -1,0 +1,27 @@
+@startuml
+
+User "1" - "0..*" Room : owns >
+Room "1" *-- "0..*" Device
+
+class Room {
+  String roomId
+  String name
+  void registerDevice()
+}
+
+class Device {
+  String deviceId
+  String name
+  Float targetValue
+  Float value
+  DeviceType type
+}
+
+class User {
+  String username
+  String password
+  void registerRoom() 
+}
+
+
+@enduml

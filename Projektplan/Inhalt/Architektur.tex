@@ -1,6 +1,6 @@
 \section{Architektur und Umsetzung}
 
-Im Nachfolgenden werden die entwickelten und eingesetzten Lösungen zu den im Abschnitt \ref{Zieldefinition} beschriebenen hardware- und softwarespezifischen Anforderungen erläutert. \Abbildung{DD} zeigt
+Im Nachfolgenden werden die entwickelten und eingesetzten Lösungen zu den im \autoref{Zieldefinition} beschriebenen hardware- und softwarespezifischen Anforderungen erläutert. \Abbildung{DD} zeigt
 die grobe Systemarchitektur der entwickelten Lösung.
 
 
@@ -11,9 +11,8 @@ die grobe Systemarchitektur der entwickelten Lösung.
 \label{fig:DD}
 \end{figure}
 
-\subsection{Hardware}
-Die Hardware
+Das System besteht im wesentlichen aus vier Komponenten. Dem Endgerät - in unserem Szenarion das Heizungsventil, dem "Room Server", der das Endgerät über das ZigBee-Protokoll steuert, dem "Cloud Backend" welches ein RESTful API zur Verwaltung von Räumen und Geräten bereitstellt und einem Frontend zur Bedienung des Systems.
 
-\subsection{Software}
-Die Software
+Die einzelnen Bestandteile des Systems werden in den folgenden Unterkapiteln genau beschrieben. 
+
 \input{Inhalt/Backend}
