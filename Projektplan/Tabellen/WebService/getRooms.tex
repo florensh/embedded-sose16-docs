@@ -1,7 +1,7 @@
 \begin{tabularx}{\textwidth}{|l|X|}
 \hline
 Bezeichnung & Eine Liste aller Räume abrufen\\ \hline
-URL &  \colorbox{pregray}{\lstinline{/api/rooms}}\\ \hline
+URL &  \colorbox{pregray}{\lstinline{/api/user/rooms}}\\ \hline
 Methode & GET \\ \hline
 
 Erfolgsantwort & 
@@ -22,7 +22,7 @@ Content-Length: 71^^J
 
 Beispiel & 
 \begin{lstlisting}^^J
-$ curl 'http://localhost:8080/api/rooms' -i -H 'X-AUTH-TOKEN: eyJpZCI6MTEsInVzZ67KDv...'^^J
+$ curl 'http://localhost:8080/api/user/rooms' -i -H 'X-AUTH-TOKEN: eyJpZCI6MTEsInVzZ67KDv...'^^J
 \end{lstlisting}\\ \hline
 \end{tabularx}
 

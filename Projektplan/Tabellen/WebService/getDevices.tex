@@ -1,7 +1,7 @@
 \begin{tabularx}{\textwidth}{|l|X|}
 \hline
 Bezeichnung & Alle Geräte eines Raumes auflisten\\ \hline
-URL &  \colorbox{pregray}{\lstinline{/api/rooms/:id/devices}}\\ \hline
+URL &  \colorbox{pregray}{\lstinline{/api/user/rooms/:id/devices}}\\ \hline
 Methode & GET \\ \hline
 URL-Parameter & \textbf{erforderlich:}\newline \colorbox{pregray}{\lstinline{id=[alphanumeric]}} \newline Beispiel: id=d934eb20-4c6f-4d1c-91c5-61cdeddcf843\\ \hline
 
@@ -31,7 +31,7 @@ X-Frame-Options: DENY^^J
 \end{lstlisting}\\ \hline
 Beispiel & 
 \begin{lstlisting}^^J
-$ curl 'http://localhost:8080/api/rooms/d934eb20-4c6f-4d1c-91c5-61cdeddcf843/devices' -i -H 'X-AUTH-TOKEN: eyJpZCI6MTEsIyu2ZOL67KDvf1RPcmfC8dA...'^^J
+$ curl 'http://localhost:8080/api/user/rooms/d934eb20-4c6f-4d1c-91c5-61cdeddcf843/devices' -i -H 'X-AUTH-TOKEN: eyJpZCI6MTEsIyu2ZOL67KDvf1RPcmfC8dA...'^^J
 \end{lstlisting}\\ \hline
 \end{tabularx}
 

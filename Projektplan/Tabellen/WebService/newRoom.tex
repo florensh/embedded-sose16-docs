@@ -1,7 +1,7 @@
 \begin{tabularx}{\textwidth}{|l|X|}
 \hline
 Bezeichnung & Einen Raum registrieren\\ \hline
-URL &  \colorbox{pregray}{\lstinline{/api/rooms/:id}}\\ \hline
+URL &  \colorbox{pregray}{\lstinline{/api/user/rooms/:id}}\\ \hline
 Methode & PUT \\ \hline
 URL-Parameter & \textbf{erforderlich:}\newline \colorbox{pregray}{\lstinline{id=[String]}} \newline Beispiel: id=d934eb20-4c6f-4d1c-91c5-61cdeddcf843  \\ \hline
 Parameter & 
@@ -26,7 +26,7 @@ room successfully registered^^J
 \end{lstlisting}\\ \hline
 Beispiel & 
 \begin{lstlisting}^^J
-$ curl 'http://localhost:8080/api/rooms/d934eb20-4c6f-4d1c-91c5-61cdeddcf843' -i -X PUT -H 'Content-Type: application/json' -H 'X-AUTH-TOKEN: eyJpZCI6MTEsInVzZXJuYW...' -d '\{"name":"Wohnzimmer"\}'^^J
+$ curl 'http://localhost:8080/api/user/rooms/d934eb20-4c6f-4d1c-91c5-61cdeddcf843' -i -X PUT -H 'Content-Type: application/json' -H 'X-AUTH-TOKEN: eyJpZCI6MTEsInVzZXJuYW...' -d '\{"name":"Wohnzimmer"\}'^^J
 \end{lstlisting}\\ \hline
 \end{tabularx}
 

@@ -1,7 +1,7 @@
 \begin{tabularx}{\textwidth}{|l|X|}
 \hline
 Bezeichnung & Ein spezifisches Gerät abrufen\\ \hline
-URL &  \colorbox{pregray}{\lstinline{/api/rooms/:roomId/devices/:deviceId}}\\ \hline
+URL &  \colorbox{pregray}{\lstinline{/api/user/rooms/:roomId/devices/:deviceId}}\\ \hline
 Methode & GET \\ \hline
 URL-Parameter & \textbf{erforderlich:}\newline \colorbox{pregray}{\lstinline{roomId=[alphanumeric]}} \newline Beispiel: id=d934eb20-4c6f-4d1c-91c5-61cdeddcf843 \newline \newline  \colorbox{pregray}{\lstinline{deviceId=[alphanumeric]}} \newline Beispiel: id=a934eb20-4c6f-4d1c-91c5-61cdeddcf843 \\ \hline
 
@@ -31,7 +31,7 @@ X-Frame-Options: DENY^^J
 \end{lstlisting}\\ \hline
 Beispiel & 
 \begin{lstlisting}^^J
-$ curl 'http://localhost:8080/api/rooms/d934eb20-4c6f-4d1c-91c5-61cdeddcf843/devices/a614eb20-4c6f-4d1c-91c5-61cdeddcf843' -i -H 'X-AUTH-TOKEN: eyJpZCI6MTEsInVzZXJuYW1lIjoi...'^^J
+$ curl 'http://localhost:8080/api/user/rooms/d934eb20-4c6f-4d1c-91c5-61cdeddcf843/devices/a614eb20-4c6f-4d1c-91c5-61cdeddcf843' -i -H 'X-AUTH-TOKEN: eyJpZCI6MTEsInVzZXJuYW1lIjoi...'^^J
 \end{lstlisting}\\ \hline
 \end{tabularx}
 
