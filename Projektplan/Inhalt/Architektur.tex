@@ -11,10 +11,23 @@ die grobe Systemarchitektur der entwickelten Lösung.
 \label{fig:DD}
 \end{figure}
 
-Das System besteht im wesentlichen aus vier Komponenten. Dem Endgerät - in unserem Szenarion das Heizungsventil, dem "Room Server", der das Endgerät über das ZigBee-Protokoll steuert, dem "Cloud Backend" welches ein RESTful API zur Verwaltung von Räumen und Geräten bereitstellt und einem Frontend zur Bedienung des Systems.
+Das System besteht im wesentlichen aus vier Komponenten:
+
+\begin{itemize}
+\item \textbf{Endgerät:} Zum Beispiel Heizung, Schalter, Türöffner
+\item \textbf{Raumserver:} Steuert Endgerät über das ZigBee-Protokoll
+\item \textbf{Cloud Backend:} Bietet eine RESTful API zur Verwaltung der Räume und Geräte
+\item \textbf{Web Frontend:} Grafische Oberfläche zur Kommunikation mit dem Cloud Backend
+\end{itemize}
 
 Die einzelnen Bestandteile des Systems werden in den folgenden Unterkapiteln genau beschrieben. 
 
 \input{Inhalt/Backend}
 
+\input{Inhalt/Raumserver}
+
+\input{Inhalt/Ventil}
+
 \input{Inhalt/Frontend}
+
+\input{Inhalt/Kommunikation_gesamt}

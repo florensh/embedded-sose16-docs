@@ -1,0 +1,15 @@
+graph G {
+"Cloud Backend" -- "Room Server 1";
+"Cloud Backend" -- "Room Server 2";
+"Cloud Backend" -- "Room Server 3";
+"Room Server 1" -- "Device 1";
+"Room Server 1" -- "Device 2";
+"Room Server 1" -- "Device 3";
+"Room Server 2" -- "Device 4";
+"Room Server 2" -- "Device 5";
+"Room Server 2" -- "Device 6";
+"Room Server 3" -- "Device 7";
+"Room Server 3" -- "Device 8";
+"Room Server 3" -- "Device 9";
+}
+

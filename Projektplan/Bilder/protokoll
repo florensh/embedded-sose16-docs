@@ -1,0 +1,20 @@
+digraph G {
+
+node [shape=record];
+
+block1 [ label="Start Delimiter"];
+block2 [ label="Length"];
+block3 [ label="Frame Data"];
+block4 [ label="Checksum"];
+block5 [ label="Frame type"];
+block6 [ label="Data"];
+block7 [ label="Command"];
+block8 [ label="Argument 1"];
+block9 [ label="Argument 2"];
+
+block3 -> block5;
+block3 -> block6;
+block6 -> block7;
+block6 -> block8;
+block6 -> block9;
+}

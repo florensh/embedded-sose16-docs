@@ -1,0 +1,6 @@
+graph G {
+"Room Server\r\nXBee Coordinator" -- "Device 1\r\nXBee End Device";
+"Room Server\r\nXBee Coordinator" -- "Device 2\r\nXBee End Device";
+"Room Server\r\nXBee Coordinator" -- "Device 3\r\nXBee End Device";
+}
+
