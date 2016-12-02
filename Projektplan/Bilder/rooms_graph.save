@@ -1,0 +1,14 @@
+digraph G {
+
+Room Server 1 -> Device 1;
+Room Server 1 -> Device 2
+digraph G {
+
+hda -> hda1;
+hda -> hda2;
+hda -> hda3;
+hda -> hda4;
+};
+hda -> hda3;
+hda -> hda4;
+}

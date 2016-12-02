@@ -13,7 +13,7 @@ In diesem Abschnitt werden die Konzepte betrachtet und beurteilt, die bei der Vo
 \paragraph{REST API}\mbox{}\\
 Sämtliche Kommandos an die Endgeräte können über eine RESTful API getätigt werden. Der Einsatz einer API fördert die Erweiterbarkeit des Systems. So können beispielsweise unterschiedliche Frontends entwickelt werden ohne Geschäftslogik redundant zu programmieren.
 
-\paragraph{ZigBee-Kommunikation im AT-Modus}\mbox{}\\
+\paragraph{ZigBee-Kommunikation im AT-Modus}\label{AusgZigBee}\mbox{}\\
 Die Kommunikation im Netzwerk findet im \ac{AT Mode} statt. Dabei werden empfangene Daten von der \ac{Rx-Schnittstell} direkt an die \ac{Tx-Schnittstell} weitergeleitet. Damit eine Kommunikation mit mehreren Teilnehmern möglich ist werden alle Nachrichten an die Broadcast-Adresse gesendet. Dadurch ist es notwendig, dass die Adressierung im Protokoll des Hausautomatisierungssystems abgehandelt werden muss. Darüberhinaus sind keine Empfangsbestätigungen im \ac{AT Mode} implementiert. 
 
 Alternativ zum \ac{AT Mode} kann der \ac{API Mode} verwendet werden. Dieser bringt folgende Vorteile\footnote{http://knowledge.digi.com/articles/Knowledge\_Base\_Article/What-is-API-Application-Programming-Interface-Mode-and-how-does-it-work}
@@ -23,7 +23,7 @@ Alternativ zum \ac{AT Mode} kann der \ac{API Mode} verwendet werden. Dieser brin
 \item Empfangen von Übertragungsbestätigungen
 \end{itemize}
 
-\paragraph{Generisches Protokoll zwischen Server und Endgeräten}\mbox{}\\
+\paragraph{Generisches Protokoll zwischen Server und Endgeräten}\label{AusgProt}\mbox{}\\
 Es wurde ein simples Protokoll erarbeitet, das es möglich macht, dass unterschiedliche Geräte gesteuert werden. Das Protokoll kommt dabei mit drei Befehlen aus:
 \begin{itemize}
 \item Statusanfrage

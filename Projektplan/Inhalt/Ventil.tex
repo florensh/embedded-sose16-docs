@@ -1,7 +1,9 @@
 \subsection{Ventilsteuerung}\label{Ventil}
-Bla Bla Bla
+Die Ventilsteuerung besteht aus einem Mikrokontroller, der den Öffnungsgrad des Ventils durch die Ansteuerung des Ventilmotors einstellen kann. Der Öffnungsgrad des Ventils wird vom Raumserver über das ZigBee-Protokoll übermittelt. Zur ZigBee-Kommunikation verwendet die Ventilsteuerung ebenso wie der Raumserver das XBee 2 Module. Die Ventilsteuerung wurde zunächst als Prototyp auf einem Steckbrett entwickelt. Dies ist in \autoref{VentilPr} genauer beschrieben. \autoref{Gehaeuse} beschäftigt sich mit der Entwicklung eines Gehäuses für die Ventilsteuerung. in \autoref{Ventil_SW} wird beispielhaft der Algorithmus für das Initalisieren und Empfangen von Nachrichten inform eines Struktogramms gegeben.
+
 \subsubsection{Prototyp}\label{VentilPr}
-\begin{figure}[htb]
+Für den Prototypen wurde zunächst vollständig auf dem Stk600 programmiert. Zu einem späteren Zeitpunkt wurde die Zielhardware gewechselt. Dabei wurde der Atmega88 über die \ac{ISP-Schnittstelle} des Stk600s mit der Software bespielt (siehe \Abbildung{Flashing}). \Abbildung{PrV} zeigt den Prototyp auf dem Steckbrett. Dieser enthält dieselben Komponenten wie die spätere Platine.
+\begin{figure}[H]
 \centering
 \includegraphicsKeepAspectRatio{ventil2.png}{0.8}
 \caption{Prototyp Ventilsteuerung}
@@ -9,24 +11,27 @@ Bla Bla Bla
 \end{figure}
 
 \subsubsection{Gehäuse}\label{Gehaeuse}
-bla bla bla
-\begin{figure}[htb]
+Das Gehäuse wurde mit CAD entworfen und von Shapeways\footnote{http://www.shapeways.com/} gefertigt. Bei dem Entwurf waren die final verwendeten Komponenten teilweise unbekannt. Daher musste der Platz großzügig dimensioniert werden, um so eine gewisse Freiheit für weitere Komponenten zu schaffen. Dies konnte erreicht werden indem das XBee-Modul unterhalb der Platine platziert wurde. Dafür musste dann in der horizontalen Ebene zusätzlicher Platz vorgesehen werden.
+
+Sowohl Platine als auch XBee-Modul können in das Gehäuse gesteckt werden, sodass keine zusätzliche Befestigung notwendig ist.
+
+\begin{figure}[H]
 \centering
 \includegraphicsKeepAspectRatio{Schnitt_1.png}{0.8}
 \caption{Gehäuseentwurf Querschnitt}
 \label{fig:Geh1}
 \end{figure}
 
-bla bla bla
-\begin{figure}[htb]
+
+\begin{figure}[H]
 \centering
 \includegraphicsKeepAspectRatio{Render.PNG}{0.8}
 \caption{Gehäuseentwurf gerendert}
 \label{fig:Geh2}
 \end{figure}
 
-bla bla bla
-\begin{figure}[htb]
+
+\begin{figure}[H]
 \centering
 \includegraphicsKeepAspectRatio{Gehaeuse_fertig2.jpg}{0.8}
 \caption{Gehäuse gefertigt und montiert}
@@ -34,10 +39,51 @@ bla bla bla
 \end{figure}
 
 
-bla bla bla
-\begin{figure}[htb]
-\centering
-\includegraphicsKeepAspectRatio{flashing.jpg}{0.6}
-\caption{Aufspielen der Software auf den Atmega88}
-\label{fig:Flashing}
-\end{figure}
+
+%\subsubsection{Hardware}\label{VentHardware}
+
+\subsubsection{Software}\label{Ventil_SW}
+Die Steuerung des Ventils besteht im wesentlichen aus einer Initialisierungsphase, in der der Zeitbedarf für das Öffnen bzw. Schließen des Ventils gemessen wird, dem Empfangen von ZigBee-Nachrichten und dem Einstellen des gewünschten Öffnungsgrads des Ventils.
+
+In der Initialisierungsphase wird sich zu Nutzen gemacht, dass die Stromstärke beim Blockieren des Motors ansteigt. Die aktuelle Stromstärke wird über den Stromsensor eingelesen. Sobald die Dauer des Öffnens bekannt ist, kann das Ventil prozentual eingestellt werden.
+
+Im folgenden Struktogramm wird die Initialisierungsphase und das Setzen des neuen Zielwerts beschrieben. Der Einfachheit halber wurde das Öffnen bzw. Schließen aufgrund des Zielwerts nicht abgebildet.
+
+Die eigentliche Programmcode ist in C geschrieben und der Dokumentation beigefügt.
+
+\begin{struktogramm}(170,200)
+  \assign{typ:= 1}
+  \assign{zielwert}
+  \assign{aktuellerWert}
+  \assign{dauer:= 0}
+  \assign{i:=0}
+  \assign{Motor an in Richtung zu}
+    \while[8]{solange \(i < Schwellwert\)}
+    	\assign{i:= aktuelle Stromstärke}
+    \whileend
+    \assign{i:=0}
+    \assign{Starte Timer}
+    \assign{Motor an in Richtung auf}
+    \while[8]{solange \(i < Schwellwert\)}
+    	\assign{i:= aktuelle Stromstärke}
+    \whileend
+    \assign{dauer:=Timerwert}
+    \assign{aktuellerWert:= dauer}
+    \while[8]{\(endlos\)}
+    	\ifthenelse[10]{3}{1}
+			{Nachricht vorhanden?}{\sTrue}{\sFalse}
+			\assign[15]{cmd:= Byte 1 der Nachricht}
+			\assign[15]{arg1:= Byte 2 der Nachricht}
+			\assign[15]{arg2:= Byte 3 der Nachricht}
+			\case{6}{2}{cmd}{1}
+				\assign{zielwert:=(dauer/100)*arg1}
+			\switch{2}
+				\assign{status:= typ + "/" + aktuellerWert}
+				\assign{sende status}
+			\caseend
+		\change
+			%\assign{Ausgabe auf den Bildschirm}
+		\ifend
+
+    \whileend
+\end{struktogramm}\mbox{}\\

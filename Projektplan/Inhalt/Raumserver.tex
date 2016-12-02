@@ -1,18 +1,50 @@
 \subsection{Raumserver}\label{Raumserver}
 Der Raumserver ist eine Java-Anwendung zur Steuerung von Geräten über ZigBee. Seine Befehle nimmt er über eine Message-Queue entgegen (siehe \autoref{Messaging}. Diese kann vom Benutzer über die Hausautomatisierungs-API vom Cloud Backend angesprochen werden. Der Raumserver bietet darüberhinaus eine Webseite zur Konfiguration (siehe \autoref{RoomConfig}). Zur Kommunikation mit ZigBee-fähigen Geräten wird ein generisches Protokoll verwendet (\autoref{Protokoll}). Der Raspberry Pi dient als Plattform für die Software. Am Raspberry Pi ist ein Temperatursensor verbaut, der vom Raumserver verwendet wird um die Raumtemperatur zu regulieren.
 
+
 \subsubsection{Hardware}\label{Raum_Hardware}
-In folgendem Abschnitt wird auf die hardwarespezifischen Besonderheiten des Raumservers eingegangen. Dabei wird in \autoref{Pi} auf die Plattform eingegangen auf der die Java-Anwendung ausgeführt wird. \autoref{Temp} beschreibt den Temperatursensor, der auf dem Pi verbaut ist. In \autoref{Raum_XBee} wird auf die Hardware eingegangen, die verwendet wird um über das ZigBee-Protokoll mit den Endgeräten zu kommunizieren. Abschließend wird in \autoref{Raum_LED} die Bedeutung der LED-Anzeigen erleutert.
+In folgendem Abschnitt wird auf die hardwarespezifischen Besonderheiten des Raumservers eingegangen. Dabei wird in \autoref{Pi} auf die Plattform eingegangen auf der die Java-Anwendung ausgeführt wird. \autoref{Temp} beschreibt den Temperatursensor, der auf dem Pi verbaut ist. In \autoref{Raum_XBee} wird auf die Hardware eingegangen, die verwendet wird um über das ZigBee-Protokoll mit den Endgeräten zu kommunizieren. Abschließend wird in \autoref{Raum_LED} die Bedeutung der LED-Anzeigen erläutert.
+
+
+\begin{figure}[H]
+\centering
+\includegraphicsKeepAspectRatio{pisnap.jpg}{0.6}
+\caption{Raspberry Pi mit Status-LED auf Steckbrett}
+\label{fig:pisnap}
+\end{figure}
+
+
 \paragraph{Raspberry Pi}\mbox{}\\\label{Pi}
+Es wird das Raspberry Pi 2 Model B verwendet. Über die \ac{GPIO-Pins} ist weitere Hardware verbunden. Diese ist:
+\begin{itemize}
+\item \textbf{Temperatursensor LM75}
+\item \textbf{XBee Series 2 über USB-Adapterplatine}
+\item \textbf{LED}
+\end{itemize}
+
+In den weiteren Abschnitten wird die angeschlossene Hardware und derren Verwendung beschrieben.
 
 \paragraph{Temperatursensor}\mbox{}\\\label{Temp}
-
-\paragraph{XBee USB Module}\mbox{}\\\label{Raum_XBee}
+Siehe dazu \autoref{Sensors}.
 
 \paragraph{Status-LED}\mbox{}\\\label{Raum_LED}
+Die Status-LED signalisiert wichtige Ereignisse des Raumservers. Die Signale sind in \autoref{T_Raum_LED} beschrieben.
+\begin{table}[]
+\centering
+\begin{tabular}{|l|l|}
+\hline
+\textbf{LED}                  & \textbf{Bedeutung}                                               \\ \hline
+Aus                           & Der Raumserver ist nicht aktiv. Dies deutet auf ein Problem hin. \\ \hline
+Dauerhaft an                  & Der Raumserver ist aktiv.                                        \\ \hline
+Blinken in langsamer Frequenz & Der Raumserver befindet sich in der Iinitialisierungsphase       \\ \hline
+Blinken in schneller Frequenz & Der Raumserver empfängt oder sendet Nachrichten                  \\ \hline
+\end{tabular}
+\caption{Signale der Status-LED}
+\label{T_Raum_LED}
+\end{table}
 
 
-\subsubsection{Software}\label{Raum_Software}
+%\subsubsection{Software}\label{Raum_Software}
 
 \subsubsection{Schnittstellen}\label{Raum_Schnittstellen}
 Der Raumserver bietet mehrere Schnittstellen. Eine Übersicht ist in \Abbildung{RSSS} dargestellt. Dabei wird ein Heizungsventil beipielhaft als Endgerät angegeben.
@@ -22,7 +54,7 @@ Die entgegengesetzte Kommunikation findet über das Messaging-Verfahren AMQP\foo
 \vspace{2em}
 \begin{lstlisting}
 {
-   "deviceId": "123",
+   "deviceId": "d934eb20-4c6f-4d1c-91c5-61cdeddcf843",
    "targetValue: "20.5"
 }
 
@@ -30,16 +62,16 @@ Die entgegengesetzte Kommunikation findet über das Messaging-Verfahren AMQP\foo
 \vspace{2em}
 Nachrichten beschränken sich auf das Setzen von Werten für bestimmte Endgeräte. Das jeweilige Endgerät wird über die im JSON mitgelieferte deviceId identifiziert. Beim Raumserver eingehende Nachrichten werden an die entsprechenden Endgeräte über das ZigBee-Protokoll weitergeleitet (siehe dazu \autoref{ZigBee}). 
 
-\begin{figure}[htb]
+\begin{figure}[H]
 \centering
 \includegraphicsKeepAspectRatio{Raumserver_Com.png}{0.6}
 \caption{Schnittstellen des Raumservers}
 \label{fig:RSSS}
 \end{figure}
 
-Innerhalb der ZigBee-Kommunikation nimmt der Raumserver die Rolle des Coordinator\footnote{https://en.wikipedia.org/wiki/ZigBee} ein und die Geräte wie zum Beispiel das Heizungsventil die Rolle des End Device (siehe \Abbildung{CBRSED}).
+Innerhalb der ZigBee-Kommunikation nimmt der Raumserver die Rolle des Coordinator\footnote{https://en.wikipedia.org/wiki/ZigBee} ein und die Geräte, wie zum Beispiel das Heizungsventil, die Rolle des End Device (siehe \Abbildung{CBRSED}).
 
-\begin{figure}[htb]
+\begin{figure}[H]
 \centering
 \includegraphicsKeepAspectRatio{rooms_graph2.png}{0.6}
 \caption{ZigBee-Netzwerk mit Raumserver und Geräten}
@@ -47,20 +79,9 @@ Innerhalb der ZigBee-Kommunikation nimmt der Raumserver die Rolle des Coordinato
 \end{figure}
 
 \subsubsection{Konfiguration}\label{RoomConfig}
+Die Konfigurationsseite (siehe \Abbildung{ConfigRaum}) des Servers kann über den Browser aufgerufen werden. Die Seite zeigt die eindeutige Identifikation des Servers an und bietet eine Maske zur Eingabe des Cloud Accounts. Die Eingabe des Accounts ist notwendig, damit der Raumserver einem Benutzer zugeordnet werden kann. Sobald der Account eingestellt ist registriert sich der Server selbst beim Backend (siehe \Abbildung{FE_NewRoom}). Nun können Raumserver und Backend bidirektional kommunizieren.
 
-\begin{figure}[htb]
-\centering
-\includegraphicsKeepAspectRatio{Config.png}{1.0}
-\caption{Konfigurationsseite des Raumservers}
-\label{fig:ConfigRaum}
-\end{figure}
 
-\begin{figure}[htb]
-\centering
-\includegraphicsKeepAspectRatio{ConfigLogin.png}{1.0}
-\caption{Eingabemaske für den Cloud Account}
-\label{fig:ConfigRaum_Login}
-\end{figure}
 
 
 
@@ -68,13 +89,18 @@ Innerhalb der ZigBee-Kommunikation nimmt der Raumserver die Rolle des Coordinato
 
 
 \subsubsection{Nachrichtenprotokoll}\label{Protokoll}
+Das Protokoll zum Austauschen von Kommandos zwischen Raumserver und Endgeräten sieht Nachrichten mit fester Länge von drei Bytes vor (siehe \Abbildung{Frame}). Ein Byte für den jeweiligen Kommandotyp und 2 Bytes für Argumente. Die Argumente unterscheiden sich in Abhängigkeit vom Kommandotyp. Die verschiedenen Kommandotypen können der \autoref{CMDS} entnommen werden. 
 
-\begin{figure}[htb]
+
+
+\begin{figure}[H]
 \centering
 \includegraphicsKeepAspectRatio{protokoll.png}{0.6}
 \caption{Raumserver XBee-Nachrichtenstruktur}
 \label{fig:Frame}
 \end{figure}
+
+Das Setzen eines Wertes 1 erfolgt beispielsweise über die Nachricht 01/01/00. Beim Rücksenden des Status wird sowohl der aktuelle Wert angegeben als auch der Gerätetyp. Die Schlüssel der verschiedenen Gerätetypen kann der \autoref{Devices} entnommen werden.
 
 
 \begin{table}[]
@@ -94,12 +120,14 @@ Innerhalb der ZigBee-Kommunikation nimmt der Raumserver die Rolle des Coordinato
 \begin{tabular}{|l|l|}
 \hline
 \textbf{Gerätetypen} & \textbf{Bezeichnung} \\ \hline
-01                    & Heizung           \\ \hline
-02                    & Schalter             \\ \hline
+01                    & HEATING           \\ \hline
+02                    & SWITCH             \\ \hline
 \end{tabular}
 \caption{Gerätetypen}
 \label{Devices}
 \end{table}
+
+In der \autoref{PEx} ist ein beispielhafter Kommunikationsablauf dargestellt. Dabei Sendet der Raumserver einem Endgerät eine Statusabfrage. Nach Erhalt der Statusantwort ist der Typ bekannt. Es handelt sich um eine Heizung. Der Raumserver reguliert die Raumtemperatur und sendet dazu der Heizung den notwendigen Öffnungsgrad des Ventils. 
 
 \begin{table}[]
 \centering
@@ -122,14 +150,99 @@ Innerhalb der ZigBee-Kommunikation nimmt der Raumserver die Rolle des Coordinato
 \end{table}
 
 \subsubsection{Kommunikation über ZigBee}\label{ZigBee}
+Im Gegensatz zur Vorgruppe findet die XBee-Kommunikation aktuell im \ac{API Mode} statt. Die Vorteile wurden in \autoref{AusgZigBee} erläutert. Eine offizielle Java Library wird von DIGI zur Verfügung gestellt\footnote{http://www.digi.com/blog/community/official-xbee-java-library/}.
 
 \subsubsection{Inbetriebnahme}
+In diesem Abschnitt werden die notwendigen Schritte zum Installieren, Starten und Stoppen der Software auf dem Raspberry Pi erklärt. Im \autoref{Logging} wird beschreiben wie auf dem Raspberry Pi die Log-Dateien des Raumservers gelesen werden können.
 
 \paragraph{Inatallation}\mbox{}\\
-alsdjflakjsdf
+Der Raumserver kann mit gradle gebaut werden:
+\Code{gradle build}\\
+Anschließend kann die jar-Datei auf den Raspberry Pi hochgeladen werden:\\
+\Code{scp roomserver-0.1.0.jar pi@172.20.10.5:/home/pi}\\
+
+Die IP-Adresse des Raumservers kann über das Cloud Backend ermittelt werden:\\
+\Code{https://enigmatic-waters-31128.herokuapp.com/dev/roomserver}\\
+
+\vspace{2em}
+\begin{lstlisting}
+{"ip":"172.20.10.5"}
+\end{lstlisting}
+\vspace{2em}
+
+Die IP-Adresse wird vom Raspberry Pi beim Start über ein Skript an das Cloud Backend übermittelt:\\
+\vspace{2em}
+\begin{lstlisting}
+#!/bin/bash
+# send pi info script
+
+echo '{"ip":"'"`LANG=C ifconfig \
+| grep "inet addr:" \
+| grep -v "127\.[0-9]\+\.[0-9]\+\.[0-9]\+" \
+| cut -d":" -f2 \
+| cut -d" " -f1 \
+| head -n1`"'"}' \
+| curl 'https://enigmatic-waters-31128.herokuapp.com/dev/roomserver' -i -X PUT -H 'Content-Type: application/json' -d @- > /dev/null
+\end{lstlisting}
+\vspace{2em}
 
 \paragraph{Starten und Stoppen}\mbox{}\\
-lajd lajsdf laj d
+Grundsätulich startet die Anwendung automatisch sobald der Raspberry Pi eingeschlaten wurde. Dies wird mit einem entsprechenden Eintrag in crontab realisiert. Ein weiterer Cronjob prüft jede Minute ob der Raumserver noch läuft und startet gegebenenfalls erneut.
 
-\paragraph{Logging}\mbox{}\\
-alsdjfla sd
+Der Server kann zusätzlich manuell gestartet werden:
+Per SSH mit dem Server verbinden:
+\Code{ssh pi@raspberrypi}
+
+\textbf{Starten:}\\
+\Code{sudo /home/pi/roomserver.sh start}\\
+
+\textbf{Stoppen:}\\
+\Code{sudo /home/pi/roomserver.sh stop}\\
+
+\textbf{Neustarten:}\\
+\Code{sudo /home/pi/roomserver.sh restart}\\
+
+\paragraph{Logging}\label{Logging}\mbox{}\\
+Der Raumserver schreibt seine Logstatements in folgende Datei:\\
+\Code{/srv/logs/roomserver.log}\\
+Zum mitverfolgen der Logdatei kann folgender Befehl benutzt werden:\\
+\Code{tail -f /srv/logs/roomserver.log}\\
+Im Folgendem wird ein Beispiel einer Logausgabe dargestellt:
+\vspace{2em}
+\begin{lstlisting}
+22:23:17.566 - Starting Application on raspberrypi with PID 2603 (/home/pi/roomserver-0.1.0.jar started by root in /home/pi)
+22:23:17.620 - The following profiles are active: prod
+22:24:23.001 - [/dev/ttyS80 - 9600/8/N/1/N] Opening the connection interface...
+22:24:23.100 - [/dev/ttyS80 - 9600/8/N/1/N] Connection interface open.
+22:24:51.570 - Started Application in 97.26 seconds (JVM running for 103.278)
+22:24:53.216 - Discovery process started
+22:24:53.425 - Device discovered: 0013A20040AFBEAD -  
+22:24:59.293 - Discovery process finished successfully - 1 devices in network
+22:24:59.416 - Sending status request to 0013A20040AFBEAD
+22:24:59.418 - sending message to 0013A20040AFBEAD >> 2/0/0
+22:24:59.961 - [/dev/ttyS80 - 9600/8/N/1/N] Data received from 0013A20040AFBEAD >> 33 2F 31 2F 35.
+22:24:59.979 - Message is 3/1/5
+22:24:59.981 - cmd is: 3
+22:24:59.982 - arg1 is: 1
+22:24:59.983 - arg2 is: 5
+22:24:59.985 - Received status from 0013A20040AFBEAD: [HEATING 5]
+22:24:59.998 - 0013A20040AFBEAD is unknown, registering to backend
+23:19:51.558 - Received device update [id: d934eb20-4c6f-4d1c-91c5-61cdeddcf843_HEATING / target value: 30.0]
+23:19:51.576 - calibrating heating [target: 30.0 / current: 28.0]
+23:19:51.580 - sending message to 0013A20040AFBEAD >> 1/10/0
+
+23:19:51.706 - [/dev/ttyS80 - 9600/8/N/1/N] Data received from 0013A20040AFBEAD >> 33 2F 31 2F 31 30.
+23:19:51.711 - Message is 3/1/10
+23:19:51.713 - cmd is: 3
+23:19:51.715 - arg1 is: 1
+23:19:51.717 - arg2 is: 10
+23:19:51.719 - Received status from 0013A20040AFBEAD: [HEATING 10]
+23:19:53.054 - sending temperature to backend
+
+\end{lstlisting}
+\vspace{2em}
+
+\subsubsection{Regulierung der Raumtemperatur}
+Die Heizungssteuerung ist so entwickelt, dass die Werte, die sie empfängt als prozentualen Öffnungsgrad interpretiert. Das Prozentuale Öffnen der Heizung ist wichtig um ein konstantes Raumklima zu erreichen. 
+
+In professionellen Systemen kommt hier ein so genannter \ac{PID-Regler} zum Einsatz. Die Implementierung eines solchen Reglers war für dieses Projekt geplant, konnte aber aus zeittechnischen Gründen nicht mehr umgesetzt werden. Für nachfolgende Gruppen wäre hier ein Ansatzpunkt Verbesserungen an dem System vorzunehmen. Eine Java-Library für den PID-Algorithmus ist auf Github\footnote{https://github.com/ebisi/pid4j} zu finden.

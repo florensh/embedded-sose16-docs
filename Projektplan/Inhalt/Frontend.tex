@@ -1,2 +1,27 @@
 \subsection{Frontend}
-Bla Bla Bla.
+Das Frontend ist eine mit AngularJS entwickelte Webanwendung. Aufgrund des Responsive Designs passt sich die Anwendung dem jeweiligen Endgerät an. Dadurch ist es möglich die Hausautomatisierung über den Computer, Tablet und Handy zu steuern. 
+
+Aufgrund der Eigenschaft einer Single-Page-Application ist das Benutzererlebnis aufgrund der schnellen Reaktion besonders gut. 
+
+Durch die Verwendung von Websockets werden Werteänderungen direkt zum Browser gepusht, so dass kein GUI-Refresh erforderlich ist. Dies kommt bei folgenden Funktionen zum Einsatz:
+
+\begin{itemize}
+\item Registrierte Geräre und Räume erscheinen automatisch
+\item Die aktuelle Temperatur wird automatisch auf der Oberfläche angepasst
+\item Das Temperaturverlaufsdiagramm wird automatsich aktualisiert
+\item Veränderungen, die auf anderen Geräten vorgenommen werden, werden auf der eigenen Oberfläche automatisch angepasst
+\end{itemize}
+
+Eine Darstellung der Kommunikationsschnittstellen des Frontends ist in \Abbildung{Com_tech_fr} zu sehen.
+
+\begin{figure}[H]
+\centering
+\includegraphicsKeepAspectRatio{com_tech.png}{0.5}
+\caption{Kommunikationsschnittstellen}
+\label{fig:Com_tech_fr}
+\end{figure}
+
+Bei der Gestaltung des Frontends wurde besonderen Wert auf Einfachheit gelegt. Neben der Darstellung von Räumen und Geräten verfügt die Anwendung noch über zwei Oberflächen zum Anmelden und Registrieren.
+Beim Login wird ein vom Backend erhaltenes Token im Local Storage abgelegt und bei weiteren Anfragen verwendet. Da die Screenshots (\autoref{FrontendScreens}) selbsterklärend sind wird auf eine genauere Erklärung der einzelnen Oberflächen verzichtet.
+
+

@@ -127,7 +127,16 @@ Via: 1.1 vegur
 \end{lstlisting}
 
 \subsubsection{Messaging}\label{Messaging}
-Bla bla bla.
+
+Beim Messaging kommt das \ac{AMQP} in der Kommunikation von Cloud Backend zu Raumserver zum Einsatz. Dabei wird für jeden Raumserver eine eigene Queue eingerichtet. Siehe dazu \Abbildung{AMQP}.
+
+
+\begin{figure}[H]
+\centering
+\includegraphicsKeepAspectRatio{msg2.png}{0.6}
+\caption{AMQP Konfigurationsseite}
+\label{fig:AMQP}
+\end{figure}
 
 \subsubsection{Build und Deployment}\label{Backend_Deployment}
 Zum Erstellen der Serverpaketierung kann Gradle verwendet werden. Da das Projekt den Gradle-Wrapper enthält muss Gradle nicht auf dem System installiert sein. Der Befehl zum Erstellen der Serverpaketierung lautet wie folgt:\\
